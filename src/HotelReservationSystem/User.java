@@ -1,22 +1,20 @@
 
 package HotelReservationSystem;
 
+import java.util.UUID;
+
 /**
  *
  * @author Wina Munawaroh
  */
 public abstract class User {
-    private int id;
+    private String id;
     private String username, password;
     
-    public User(int id, String username, String password) {
-        this.id = id;
+    public User(String username, String password) {
+        this.id = UUID.randomUUID().toString();
         this.username = username;
         this.password = password;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
     }
     
     public void setUsername(String username) {
@@ -29,7 +27,7 @@ public abstract class User {
     
     abstract public void setNama(String nama); 
     
-    public int getId() {
+    public String getId() {
         return id;
     }
     
