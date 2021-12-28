@@ -42,6 +42,6 @@ public abstract class User {
     abstract public String getNama();
         
     boolean verifyLogin(String passwordInput) {
-      return passwordInput == this.password;
+      return (passwordInput == this.password);
     }
 }
