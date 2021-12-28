@@ -1,15 +1,18 @@
 
 package HotelReservationSystem;
 
+import java.util.UUID;
+
 /**
  *
  * @author Wina Munawaroh
  */
 public class Kamar {
-    private String tipe;
+    private String id, tipe;
     private int hargaPerMalam, batasOrangPerKamar;
     
     public Kamar(String tipe, int hargaPerMalam, int batasOrangPerKamar) {
+        this.id = UUID.randomUUID().toString();
         this.tipe = tipe;
         this.hargaPerMalam = hargaPerMalam;
         this.batasOrangPerKamar = batasOrangPerKamar;
@@ -25,6 +28,10 @@ public class Kamar {
     
     public void setBatasOrangPerKamar(int batasOrangPerKamar) {
         this.batasOrangPerKamar = batasOrangPerKamar;
+    }
+    
+    public String getId() {
+        return id;
     }
     
     public String getTipe() {
