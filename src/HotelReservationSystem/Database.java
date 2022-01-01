@@ -149,4 +149,48 @@ public class Database {
         }
         return "";
     }
+
+    public Customer getCustomerById(String id) {
+        Customer res = new Customer("", "", "");
+        try {
+            String sql = "SELECT * FROM user INNER JOIN customer"
+                    + " ON customer.id_user = user.id WHERE user.id='%s'";
+            sql = String.format(sql, id);
+            rs = stmt.executeQuery(sql);
+            
+            if (!rs.next()) return res;
+            
+            res.setId(id);
+            res.setUsername(rs.getString("username"));
+            res.setPassword(rs.getString("password"));
+            res.setNama(rs.getString("nama"));
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    public Hotel getHotelById(String id) {
+        Hotel res = new Hotel("", "", "", "", "", -1);
+        try {
+            String sql = "SELECT * FROM user INNER JOIN hotel"
+                    + " ON hotel.id_user = user.id WHERE user.id='%s'";
+            sql = String.format(sql, id);
+            rs = stmt.executeQuery(sql);
+            
+            if (!rs.next()) return res;
+            
+            res.setId(id);
+            res.setUsername(rs.getString("username"));
+            res.setPassword(rs.getString("password"));
+            res.setNama(rs.getString("nama_hotel"));
+            res.setDeskripsi(rs.getString("deskripsi"));
+            res.setLokasi(rs.getString("lokasi"));
+            res.setBanyakBintang(rs.getInt("banyak_bintang"));
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 }
