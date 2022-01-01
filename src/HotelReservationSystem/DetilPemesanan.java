@@ -24,6 +24,9 @@ public class DetilPemesanan {
         this.hargaTotal = k.getHargaPerMalam()*cntK*cntM;
     }
     
+    public String getId() {
+        return id;
+    }
     public Customer getCustomer() {
         return customer;
     }
