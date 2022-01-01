@@ -122,4 +122,31 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+    public String verifyCustomer(String username, String password) {
+        try {
+            String sql = "SELECT id FROM user WHERE role='customer' AND username='%s' AND password='%s'";
+            sql = String.format(sql, username, password);
+            rs = stmt.executeQuery(sql);
+            
+            if (!rs.next()) return "not found";
+            return rs.getString("id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    public String verifyHotel(String username, String password) {
+        try {
+            String sql = "SELECT id FROM user WHERE role='hotel' AND username='%s' AND password='%s'";
+            sql = String.format(sql, username, password);
+            rs = stmt.executeQuery(sql);
+            
+            if (!rs.next()) return "not found";
+            return rs.getString("id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }
