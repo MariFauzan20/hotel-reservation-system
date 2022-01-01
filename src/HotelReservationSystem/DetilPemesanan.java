@@ -1,18 +1,21 @@
 
 package HotelReservationSystem;
 
+import java.util.UUID;
+
 /**
  *
  * @author Muhammad Tsaqif Ammar
  */
 public class DetilPemesanan {
-    private int id, banyakKamar, banyakMalam, hargaTotal;
+    private String id;
+    private int banyakKamar, banyakMalam, hargaTotal;
     private Customer customer;
     private Hotel hotel;
     private Kamar tipeKamar;
     
-    public DetilPemesanan(int id, Customer c, Hotel h, Kamar k, int cntK, int cntM) {
-        this.id = id;
+    public DetilPemesanan(Customer c, Hotel h, Kamar k, int cntK, int cntM) {
+        this.id = UUID.randomUUID().toString();
         this.customer = c;
         this.hotel = h;
         this.tipeKamar = k;
