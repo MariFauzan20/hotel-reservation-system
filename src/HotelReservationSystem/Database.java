@@ -2,6 +2,7 @@
 package HotelReservationSystem;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -188,6 +189,82 @@ public class Database {
             res.setLokasi(rs.getString("lokasi"));
             res.setBanyakBintang(rs.getInt("banyak_bintang"));
             return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    public ArrayList<Hotel> getAllHotels() {
+        ArrayList<Hotel> res = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM user INNER JOIN hotel ON hotel.id_user = user.id";
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                Hotel tmp = new Hotel("", "", "", "", "", -1);
+                
+                tmp.setId(rs.getString("id"));
+                tmp.setUsername(rs.getString("username"));
+                tmp.setPassword(rs.getString("password"));
+                tmp.setNama(rs.getString("nama_hotel"));
+                tmp.setDeskripsi(rs.getString("deskripsi"));
+                tmp.setLokasi(rs.getString("lokasi"));
+                tmp.setBanyakBintang(rs.getInt("banyak_bintang"));
+                
+                res.add(tmp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    public ArrayList<Hotel> getHotelsByBintang(int bintang) {
+        ArrayList<Hotel> res = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM user u INNER JOIN hotel h"
+                    + " ON h.id_user = u.id WHERE h.banyak_bintang=%d";
+            sql = String.format(sql, bintang);
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                Hotel tmp = new Hotel("", "", "", "", "", -1);
+                
+                tmp.setId(rs.getString("id"));
+                tmp.setUsername(rs.getString("username"));
+                tmp.setPassword(rs.getString("password"));
+                tmp.setNama(rs.getString("nama_hotel"));
+                tmp.setDeskripsi(rs.getString("deskripsi"));
+                tmp.setLokasi(rs.getString("lokasi"));
+                tmp.setBanyakBintang(rs.getInt("banyak_bintang"));
+                
+                res.add(tmp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    public ArrayList<Hotel> getHotelsByLokasi(String lokasi) {
+        ArrayList<Hotel> res = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM user u INNER JOIN hotel h"
+                    + " ON h.id_user = u.id WHERE h.lokasi='%s'";
+            sql = String.format(sql, lokasi);
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                Hotel tmp = new Hotel("", "", "", "", "", -1);
+                
+                tmp.setId(rs.getString("id"));
+                tmp.setUsername(rs.getString("username"));
+                tmp.setPassword(rs.getString("password"));
+                tmp.setNama(rs.getString("nama_hotel"));
+                tmp.setDeskripsi(rs.getString("deskripsi"));
+                tmp.setLokasi(rs.getString("lokasi"));
+                tmp.setBanyakBintang(rs.getInt("banyak_bintang"));
+                
+                res.add(tmp);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
