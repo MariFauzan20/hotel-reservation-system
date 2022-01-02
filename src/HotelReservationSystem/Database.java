@@ -371,4 +371,65 @@ public class Database {
         }
         return res;
     }
+    
+    public void updateCustomerById(String id, Customer c) {
+        try {
+            String upd_un = c.getUsername();
+            String upd_pw = c.getPassword();
+            String upd_nm = c.getNama();
+            
+            String sqlUser = "UPDATE user SET username='%s', password='%s' WHERE id='%s'";
+            String sqlCustomer = "UPDATE customer SET nama='%s' WHERE id='%s'";
+            sqlUser = String.format(sqlUser, upd_un, upd_pw, id);
+            sqlCustomer = String.format(sqlCustomer, upd_nm, id);
+            
+            stmt.execute(sqlUser);
+            stmt.execute(sqlCustomer);
+            System.out.println("Data customer berhasil diperbarui.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateHotelById(String id, Hotel h) {
+        try {
+            String upd_un = h.getUsername();
+            String upd_pw = h.getPassword();
+            String upd_nm = h.getNama();
+            String upd_dk = h.getDeskripsi();
+            String upd_lk = h.getLokasi();
+            int upd_bb = h.getBanyakBintang();
+            
+            String sqlUser = "UPDATE user SET username='%s', password='%s' WHERE id='%s'";
+            String sqlHotel = "UPDATE hotel SET nama_hotel='%s',deskripsi='%s',lokasi='%s',banyak_bintang=%d WHERE id='%s'";
+            sqlUser = String.format(sqlUser, upd_un, upd_pw, id);
+            sqlHotel = String.format(sqlHotel, upd_nm, upd_dk, upd_lk, upd_bb, id);
+            
+            stmt.execute(sqlUser);
+            stmt.execute(sqlHotel);
+            System.out.println("Data hotel berhasil diperbarui.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void updatePilihanMenuById(String id, PilihanMenuKamar p) {
+        try {
+            Kamar k = p.getJenisKamar();
+            String id_k = k.getId();
+            String upd_tp = k.getTipe();
+            int upd_hg = k.getHargaPerMalam();
+            int upd_bt = k.getBatasOrangPerKamar();
+            int upd_byk_sedia = p.getbanyakKamar();
+            
+            String sqlKamar = "UPDATE kamar SET tipe='%s',harga_per_malam=%d,batas_orang=%d WHERE id='%s'";
+            String sqlPM = "UPDATE pilihan_menu SET banyak_kamar=%d WHERE id = '%s'";
+            sqlKamar = String.format(sqlKamar, upd_tp, upd_hg, upd_bt, id_k);
+            sqlPM = String.format(sqlPM, upd_byk_sedia, id);
+            
+            stmt.execute(sqlKamar);
+            stmt.execute(sqlPM);
+            System.out.println("Data pilihan menu berhasil diperbarui.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
