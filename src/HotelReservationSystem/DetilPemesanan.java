@@ -24,6 +24,10 @@ public class DetilPemesanan {
         this.hargaTotal = k.getHargaPerMalam()*cntK*cntM;
     }
     
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public String getId() {
         return id;
     }

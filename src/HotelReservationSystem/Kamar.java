@@ -18,6 +18,10 @@ public class Kamar {
         this.batasOrangPerKamar = batasOrangPerKamar;
     }
     
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public void setTipe(String tipe) {
         this.tipe = tipe;
     }

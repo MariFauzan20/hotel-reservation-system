@@ -18,6 +18,9 @@ public class PilihanMenuKamar {
         this.banyakKamar = banyakKamar;
     }
     
+    public void setId(String id) {
+        this.id = id;
+    }
     public void setJenisKamar(Kamar kamar) {
         this.jenisKamar = kamar;
     }
