@@ -270,4 +270,29 @@ public class Database {
         }
         return res;
     }
+    public ArrayList<Customer> getCustomersByHotel(String id_hotel) {
+        ArrayList<Customer> res = new ArrayList<>();
+        try {
+            String sql = "SELECT DISTINCT c.id, u.username, u.password, c.nama\n" +
+                "FROM detil_pemesanan d\n" +
+                "INNER JOIN customer c ON d.id_customer = c.id\n" +
+                "INNER JOIN user u ON u.id = c.id_user\n" +
+                "WHERE d.id_hotel = '%s'";
+            sql = String.format(sql, id_hotel);
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                Customer tmp = new Customer("", "", "");
+                tmp.setId(rs.getString("id"));
+                tmp.setUsername(rs.getString("username"));
+                tmp.setPassword(rs.getString("password"));
+                tmp.setNama(rs.getString("nama"));
+                
+                res.add(tmp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 }
