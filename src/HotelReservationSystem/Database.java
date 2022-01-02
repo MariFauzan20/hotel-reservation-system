@@ -295,4 +295,30 @@ public class Database {
         }
         return res;
     }
+    public ArrayList<PilihanMenuKamar> getPilihanMenuByHotel(String id_hotel) {
+        ArrayList<PilihanMenuKamar> res = new ArrayList<>();
+        try {
+            String sql = "SELECT p.id id_p, k.id id_k, k.*, p.banyak_kamar\n" +
+                "FROM pilihan_menu p\n" +
+                "INNER JOIN kamar k ON p.id_kamar = k.id\n" +
+                "WHERE p.id_hotel = '%s'";
+            sql = String.format(sql, id_hotel);
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                Kamar k = new Kamar("", -1, -1);
+                k.setId(rs.getString("id_k"));
+                k.setTipe(rs.getString("tipe"));
+                k.setHargaPerMalam(rs.getInt("harga_per_malam"));
+                k.setBatasOrangPerKamar(rs.getInt("batas_orang"));
+                
+                PilihanMenuKamar tmp = new PilihanMenuKamar(k, rs.getInt("banyak_kamar"));
+                tmp.setId(rs.getString("id_p"));
+                res.add(tmp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 }
