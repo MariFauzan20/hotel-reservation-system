@@ -321,4 +321,54 @@ public class Database {
         }
         return res;
     }
+    public ArrayList<DetilPemesanan> getPemesananByCustomer(String id_customer) {
+        ArrayList<DetilPemesanan> res = new ArrayList<>();
+        try {
+            String sql = "SELECT\n" +
+                "    d.id id_p, banyak_kamar byk_k, banyak_malam byk_m,\n" +
+                "    uc.id id_c, uc.username un_c, uc.password pw_c, nama nm_c,\n" +
+                "    uh.id id_h, uh.username un_h, uh.password pw_h, nama_hotel nm_h, deskripsi dk_h, lokasi lk_h, banyak_bintang bb_h,\n" +
+                "    k.id id_k, tipe tipe_k, harga_per_malam harga_k, batas_orang batas_k\n" +
+                "FROM detil_pemesanan d\n" +
+                "INNER JOIN customer c ON d.id_customer = c.id\n" +
+                "INNER JOIN hotel h ON d.id_hotel = h.id\n" +
+                "INNER JOIN kamar k ON d.id_kamar = k.id\n" +
+                "INNER JOIN user uc ON uc.id = c.id\n" +
+                "INNER JOIN user uh ON uh.id = h.id\n" +
+                "WHERE uc.id = '%s'";
+            sql = String.format(sql, id_customer);
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                Customer c = new Customer("", "", "");
+                c.setId(rs.getString("id_c"));
+                c.setUsername(rs.getString("un_c"));
+                c.setPassword(rs.getString("pw_c"));
+                c.setNama(rs.getString("nm_c"));
+                
+                Hotel h = new Hotel("", "", "", "", "", -1);
+                h.setId(rs.getString("id_h"));
+                h.setUsername(rs.getString("un_h"));
+                h.setPassword(rs.getString("pw_h"));
+                h.setNama(rs.getString("nm_h"));
+                h.setDeskripsi(rs.getString("dk_h"));
+                h.setLokasi(rs.getString("lk_h"));
+                h.setBanyakBintang(rs.getInt("bb_h"));
+                
+                Kamar k = new Kamar("", -1, -1);
+                k.setId(rs.getString("id_k"));
+                k.setTipe(rs.getString("tipe_k"));
+                k.setHargaPerMalam(rs.getInt("harga_k"));
+                k.setBatasOrangPerKamar(rs.getInt("batas_k"));
+                
+                DetilPemesanan tmp = new DetilPemesanan(c, h, k, rs.getInt("byk_k"), rs.getInt("byk_m"));
+                tmp.setId(rs.getString("id_p"));
+                
+                res.add(tmp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 }
