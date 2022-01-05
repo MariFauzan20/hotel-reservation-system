@@ -17,6 +17,10 @@ public abstract class User {
         this.password = password;
     }
     
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public void setUsername(String username) {
         this.username = username;
     }
