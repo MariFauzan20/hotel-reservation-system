@@ -248,7 +248,7 @@ public class Database {
         ArrayList<Hotel> res = new ArrayList<>();
         try {
             String sql = "SELECT * FROM user u INNER JOIN hotel h"
-                    + " ON h.id_user = u.id WHERE h.lokasi='%s'";
+                    + " ON h.id_user = u.id WHERE h.lokasi LIKE '%%%s%%'";
             sql = String.format(sql, lokasi);
             rs = stmt.executeQuery(sql);
             
