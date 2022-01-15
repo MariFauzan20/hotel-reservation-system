@@ -2,6 +2,7 @@
 package View;
 
 import java.awt.CardLayout;
+import java.awt.event.*;
 
 /**
  *
@@ -9,16 +10,47 @@ import java.awt.CardLayout;
  */
 public class App extends javax.swing.JFrame {
     
-    CardLayout cl;
+    private CardLayout cardLayout;
+    private Login login;
+    private Register register;
 
     /**
      * Creates new form App
      */
     public App() {
         initComponents();
-        cl = (CardLayout) parentPanel.getLayout();
+        login = new Login();
+        register = new Register();
+        
+        cardLayout = (CardLayout) parentPanel.getLayout();
+        parentPanel.add(login, "Login");
+        parentPanel.add(register, "Register");
         
         pack();
+        
+        routeLoginPage();
+        routeRegisterPage();
+        
+        cardLayout.show(parentPanel, "Login");
+    }
+    
+    private void routeLoginPage() {
+        login.getLabelAkun().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cardLayout.show(parentPanel, "Register");
+            }
+        });
+        login.getButtonSubmit().addActionListener((ActionEvent e) -> {
+            login.verifyInputUser();
+        });
+    }
+    
+    private void routeRegisterPage() {
+        register.getLabelAkun().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cardLayout.show(parentPanel, "Login");
+            }
+        });
     }
 
     /**
