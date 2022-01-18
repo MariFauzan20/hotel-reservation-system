@@ -9,7 +9,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @author asus
+ * @author Muhammad Tsaqif Ammar
  */
 public class BerandaHotel extends javax.swing.JPanel {
 

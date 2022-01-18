@@ -14,6 +14,7 @@ public class App extends javax.swing.JFrame {
     private Login login;
     private Register register;
     private BerandaHotel berandaHotel;
+    private CustomerHotel customerHotel;
 
     /**
      * Creates new form App
@@ -23,23 +24,27 @@ public class App extends javax.swing.JFrame {
         login = new Login();
         register = new Register();
         berandaHotel = new BerandaHotel();
+        customerHotel = new CustomerHotel();
         
         cardLayout = (CardLayout) parentPanel.getLayout();
         parentPanel.add(login, "Login");
         parentPanel.add(register, "Register");
         parentPanel.add(berandaHotel, "BerandaHotel");
+        parentPanel.add(customerHotel, "CustomerHotel");
         
         pack();
         
         routeLoginPage();
         routeRegisterPage();
+        routeBerandaHotelPage();
+        routeCustomerHotelPage();
         
         cardLayout.show(parentPanel, "Login");
     }
     
     private void routeLoginPage() {
         login.getLabelAkun().addMouseListener(new MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 cardLayout.show(parentPanel, "Register");
             }
         });
@@ -50,7 +55,7 @@ public class App extends javax.swing.JFrame {
     
     private void routeRegisterPage() {
         register.getLabelAkun().addMouseListener(new MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 cardLayout.show(parentPanel, "Login");
             }
         });
@@ -68,6 +73,14 @@ public class App extends javax.swing.JFrame {
         });
         berandaHotel.getButtonLogout().addActionListener((ActionEvent e) -> {
             cardLayout.show(parentPanel, "Login");
+        });
+    }
+    
+    private void routeCustomerHotelPage() {
+        customerHotel.getLabelBack().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                cardLayout.show(parentPanel, "BerandaHotel");
+            }
         });
     }
 
