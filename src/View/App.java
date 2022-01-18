@@ -13,7 +13,12 @@ public class App extends javax.swing.JFrame {
     private CardLayout cardLayout;
     private Login login;
     private Register register;
-
+    private BerandaCustomer berandaCustomer;
+    private ExploreHotel exploreHotel;
+    private DetailHotel detailHotel;
+    private HistoriPemesanan historiPemesanan;
+    private SettingsCustomer settingsCustomer;
+    
     /**
      * Creates new form App
      */
@@ -21,15 +26,27 @@ public class App extends javax.swing.JFrame {
         initComponents();
         login = new Login();
         register = new Register();
+        berandaCustomer = new BerandaCustomer();
+        exploreHotel = new ExploreHotel();
+        detailHotel = new DetailHotel();
+        historiPemesanan = new HistoriPemesanan();
+        settingsCustomer = new SettingsCustomer();
         
         cardLayout = (CardLayout) parentPanel.getLayout();
         parentPanel.add(login, "Login");
         parentPanel.add(register, "Register");
+        parentPanel.add(berandaCustomer, "BerandaCustomer");
+        parentPanel.add(exploreHotel, "ExploreHotel");
+        parentPanel.add(detailHotel, "DetailHotel");
+        parentPanel.add(historiPemesanan, "HistoriPemesanan");
+        parentPanel.add(settingsCustomer, "SettingsCustomer");
         
         pack();
         
         routeLoginPage();
         routeRegisterPage();
+        routeBerandaCustomer();
+        routeExploreHotel();
         
         cardLayout.show(parentPanel, "Login");
     }
@@ -41,7 +58,8 @@ public class App extends javax.swing.JFrame {
             }
         });
         login.getButtonSubmit().addActionListener((ActionEvent e) -> {
-            login.verifyInputUser();
+//            login.verifyInputUser();
+              cardLayout.show(parentPanel, "BerandaCustomer");
         });
     }
     
@@ -50,6 +68,30 @@ public class App extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cardLayout.show(parentPanel, "Login");
             }
+        });
+    }
+    
+    private void routeBerandaCustomer() {
+        berandaCustomer.getButtonExploreHotel().addActionListener((ActionEvent e) -> {
+              cardLayout.show(parentPanel, "ExploreHotel");
+        });
+        
+        berandaCustomer.getButtonHistoriPemesanan().addActionListener((ActionEvent e) -> {
+              cardLayout.show(parentPanel, "HistoriPemesanan");
+        });
+        
+        berandaCustomer.getButtonSettings().addActionListener((ActionEvent e) -> {
+              cardLayout.show(parentPanel, "SettingsCustomer");
+        });
+        
+        berandaCustomer.getButtonLogout().addActionListener((ActionEvent e) -> {
+              cardLayout.show(parentPanel, "Login");
+        });
+    }
+    
+    private void routeExploreHotel() {       
+        exploreHotel.getButtonPilih().addActionListener((ActionEvent e) -> {
+              cardLayout.show(parentPanel, "DetailHotel");
         });
     }
 
