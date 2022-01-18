@@ -16,6 +16,7 @@ public class App extends javax.swing.JFrame {
     private BerandaHotel berandaHotel;
     private MenuKamar menuKamar;
     private CustomerHotel customerHotel;
+    private SettingsHotel settingsHotel;
 
     /**
      * Creates new form App
@@ -27,6 +28,7 @@ public class App extends javax.swing.JFrame {
         berandaHotel = new BerandaHotel();
         customerHotel = new CustomerHotel();
         menuKamar = new MenuKamar();
+        settingsHotel = new SettingsHotel();
         
         cardLayout = (CardLayout) parentPanel.getLayout();
         parentPanel.add(login, "Login");
@@ -42,6 +44,7 @@ public class App extends javax.swing.JFrame {
         routeBerandaHotelPage();
         routeCustomerHotelPage();
         routeMenuKamarPage();
+        routeSettingsHotelPage();
         
         cardLayout.show(parentPanel, "Login");
     }
@@ -90,6 +93,14 @@ public class App extends javax.swing.JFrame {
     
     private void routeMenuKamarPage() {
         menuKamar.getLabelBack().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                cardLayout.show(parentPanel, "BerandaHotel");
+            }
+        });
+    }
+    
+    private void routeSettingsHotelPage() {
+        settingsHotel.getLabelBack().addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 cardLayout.show(parentPanel, "BerandaHotel");
             }
