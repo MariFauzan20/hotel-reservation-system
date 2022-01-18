@@ -61,6 +61,7 @@ public class CustomerHotel extends javax.swing.JPanel {
         labelBack.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelBack.setForeground(new java.awt.Color(255, 0, 0));
         labelBack.setText("< Back");
+        labelBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelDeskripsi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelDeskripsi.setText("List customer yang sudah memesan di hotel Anda");
