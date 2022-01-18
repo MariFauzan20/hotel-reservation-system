@@ -14,6 +14,7 @@ public class App extends javax.swing.JFrame {
     private Login login;
     private Register register;
     private BerandaHotel berandaHotel;
+    private MenuKamar menuKamar;
     private CustomerHotel customerHotel;
 
     /**
@@ -25,12 +26,14 @@ public class App extends javax.swing.JFrame {
         register = new Register();
         berandaHotel = new BerandaHotel();
         customerHotel = new CustomerHotel();
+        menuKamar = new MenuKamar();
         
         cardLayout = (CardLayout) parentPanel.getLayout();
         parentPanel.add(login, "Login");
         parentPanel.add(register, "Register");
         parentPanel.add(berandaHotel, "BerandaHotel");
         parentPanel.add(customerHotel, "CustomerHotel");
+        parentPanel.add(menuKamar, "MenuKamar");
         
         pack();
         
@@ -38,6 +41,7 @@ public class App extends javax.swing.JFrame {
         routeRegisterPage();
         routeBerandaHotelPage();
         routeCustomerHotelPage();
+        routeMenuKamarPage();
         
         cardLayout.show(parentPanel, "Login");
     }
@@ -78,6 +82,14 @@ public class App extends javax.swing.JFrame {
     
     private void routeCustomerHotelPage() {
         customerHotel.getLabelBack().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                cardLayout.show(parentPanel, "BerandaHotel");
+            }
+        });
+    }
+    
+    private void routeMenuKamarPage() {
+        menuKamar.getLabelBack().addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 cardLayout.show(parentPanel, "BerandaHotel");
             }

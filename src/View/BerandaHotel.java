@@ -68,7 +68,7 @@ public class BerandaHotel extends javax.swing.JPanel {
         buttonLihatCustomer.setText("Lihat Customer");
         buttonLihatCustomer.setBorder(null);
 
-        buttonLogout.setBackground(new java.awt.Color(252, 104, 129));
+        buttonLogout.setBackground(new java.awt.Color(255, 51, 51));
         buttonLogout.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         buttonLogout.setForeground(new java.awt.Color(255, 255, 255));
         buttonLogout.setText("Logout");
