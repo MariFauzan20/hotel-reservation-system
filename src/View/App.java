@@ -13,6 +13,7 @@ public class App extends javax.swing.JFrame {
     private CardLayout cardLayout;
     private Login login;
     private Register register;
+    private BerandaHotel berandaHotel;
 
     /**
      * Creates new form App
@@ -21,10 +22,12 @@ public class App extends javax.swing.JFrame {
         initComponents();
         login = new Login();
         register = new Register();
+        berandaHotel = new BerandaHotel();
         
         cardLayout = (CardLayout) parentPanel.getLayout();
         parentPanel.add(login, "Login");
         parentPanel.add(register, "Register");
+        parentPanel.add(berandaHotel, "BerandaHotel");
         
         pack();
         
@@ -50,6 +53,21 @@ public class App extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cardLayout.show(parentPanel, "Login");
             }
+        });
+    }
+    
+    private void routeBerandaHotelPage() {
+        berandaHotel.getButtonMenuKamar().addActionListener((ActionEvent e) -> {
+            cardLayout.show(parentPanel, "MenuKamar");
+        });
+        berandaHotel.getButtonLihatCustomer().addActionListener((ActionEvent e) -> {
+            cardLayout.show(parentPanel, "CustomerHotel");
+        });
+        berandaHotel.getButtonSettings().addActionListener((ActionEvent e) -> {
+            cardLayout.show(parentPanel, "SettingsHotel");
+        });
+        berandaHotel.getButtonLogout().addActionListener((ActionEvent e) -> {
+            cardLayout.show(parentPanel, "Login");
         });
     }
 
