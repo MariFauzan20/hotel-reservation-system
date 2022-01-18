@@ -13,6 +13,10 @@ public class App extends javax.swing.JFrame {
     private CardLayout cardLayout;
     private Login login;
     private Register register;
+    private BerandaHotel berandaHotel;
+    private MenuKamar menuKamar;
+    private CustomerHotel customerHotel;
+    private SettingsHotel settingsHotel;
 
     /**
      * Creates new form App
@@ -21,22 +25,33 @@ public class App extends javax.swing.JFrame {
         initComponents();
         login = new Login();
         register = new Register();
+        berandaHotel = new BerandaHotel();
+        customerHotel = new CustomerHotel();
+        menuKamar = new MenuKamar();
+        settingsHotel = new SettingsHotel();
         
         cardLayout = (CardLayout) parentPanel.getLayout();
         parentPanel.add(login, "Login");
         parentPanel.add(register, "Register");
+        parentPanel.add(berandaHotel, "BerandaHotel");
+        parentPanel.add(customerHotel, "CustomerHotel");
+        parentPanel.add(menuKamar, "MenuKamar");
         
         pack();
         
         routeLoginPage();
         routeRegisterPage();
+        routeBerandaHotelPage();
+        routeCustomerHotelPage();
+        routeMenuKamarPage();
+        routeSettingsHotelPage();
         
         cardLayout.show(parentPanel, "Login");
     }
     
     private void routeLoginPage() {
         login.getLabelAkun().addMouseListener(new MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 cardLayout.show(parentPanel, "Register");
             }
         });
@@ -47,8 +62,47 @@ public class App extends javax.swing.JFrame {
     
     private void routeRegisterPage() {
         register.getLabelAkun().addMouseListener(new MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseClicked(MouseEvent evt) {
                 cardLayout.show(parentPanel, "Login");
+            }
+        });
+    }
+    
+    private void routeBerandaHotelPage() {
+        berandaHotel.getButtonMenuKamar().addActionListener((ActionEvent e) -> {
+            cardLayout.show(parentPanel, "MenuKamar");
+        });
+        berandaHotel.getButtonLihatCustomer().addActionListener((ActionEvent e) -> {
+            cardLayout.show(parentPanel, "CustomerHotel");
+        });
+        berandaHotel.getButtonSettings().addActionListener((ActionEvent e) -> {
+            cardLayout.show(parentPanel, "SettingsHotel");
+        });
+        berandaHotel.getButtonLogout().addActionListener((ActionEvent e) -> {
+            cardLayout.show(parentPanel, "Login");
+        });
+    }
+    
+    private void routeCustomerHotelPage() {
+        customerHotel.getLabelBack().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                cardLayout.show(parentPanel, "BerandaHotel");
+            }
+        });
+    }
+    
+    private void routeMenuKamarPage() {
+        menuKamar.getLabelBack().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                cardLayout.show(parentPanel, "BerandaHotel");
+            }
+        });
+    }
+    
+    private void routeSettingsHotelPage() {
+        settingsHotel.getLabelBack().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                cardLayout.show(parentPanel, "BerandaHotel");
             }
         });
     }
