@@ -5,6 +5,8 @@
  */
 package View;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author ASUS
@@ -16,6 +18,10 @@ public class HistoriPemesanan extends javax.swing.JPanel {
      */
     public HistoriPemesanan() {
         initComponents();
+    }
+
+    public JLabel getLabelBack() {
+        return LabelBack;
     }
 
     /**
