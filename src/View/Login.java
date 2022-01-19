@@ -70,6 +70,8 @@ public class Login extends javax.swing.JPanel {
         ButtonSubmit = new javax.swing.JButton();
         LabelAkun = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Login");
 
@@ -77,7 +79,11 @@ public class Login extends javax.swing.JPanel {
 
         jLabel3.setText("Password");
 
+        ButtonSubmit.setBackground(new java.awt.Color(58, 152, 248));
+        ButtonSubmit.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        ButtonSubmit.setForeground(new java.awt.Color(255, 255, 255));
         ButtonSubmit.setText("Submit");
+        ButtonSubmit.setBorder(null);
 
         LabelAkun.setText("Belum punya akun?");
         LabelAkun.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -101,7 +107,7 @@ public class Login extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(TextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ButtonSubmit)
+                            .addComponent(ButtonSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(LabelAkun))))
                 .addContainerGap(349, Short.MAX_VALUE))
         );
@@ -118,11 +124,11 @@ public class Login extends javax.swing.JPanel {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(ButtonSubmit)
-                .addGap(26, 26, 26)
+                .addGap(42, 42, 42)
+                .addComponent(ButtonSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(LabelAkun)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

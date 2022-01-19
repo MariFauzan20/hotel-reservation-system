@@ -22,6 +22,7 @@ public class App extends javax.swing.JFrame {
     private MenuKamar menuKamar;
     private CustomerHotel customerHotel;
     private SettingsHotel settingsHotel;
+    
     /**
      * Creates new form App
      */
@@ -62,6 +63,9 @@ public class App extends javax.swing.JFrame {
         routeCustomerHotelPage();
         routeMenuKamarPage();
         routeSettingsHotelPage();
+        routeDetailHotel();
+        routeHistoriPemesanan();
+        routeSettings();
         
         cardLayout.show(parentPanel, "Login");
     }
@@ -107,6 +111,40 @@ public class App extends javax.swing.JFrame {
     private void routeExploreHotel() {       
         exploreHotel.getButtonPilih().addActionListener((ActionEvent e) -> {
               cardLayout.show(parentPanel, "DetailHotel");
+        });
+        
+        exploreHotel.getLabelBack().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                cardLayout.show(parentPanel, "BerandaCustomer");
+            }
+        });
+    }
+    
+    private void routeDetailHotel() {       
+        detailHotel.getButtonPesan().addActionListener((ActionEvent e) -> {
+              cardLayout.show(parentPanel, "HistoriPemesanan");
+        });
+        
+        detailHotel.getLabelBack().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                cardLayout.show(parentPanel, "ExploreHotel");
+            }
+        });
+    }
+    
+    private void routeHistoriPemesanan() {         
+        historiPemesanan.getLabelBack().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                cardLayout.show(parentPanel, "BerandaCustomer");
+            }
+        });
+    }
+    
+    private void routeSettings() {         
+        settingsCustomer.getLabelBack().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                cardLayout.show(parentPanel, "BerandaCustomer");
+            }
         });
     }
           

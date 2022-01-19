@@ -49,11 +49,17 @@ public class Register extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         LabelAkun = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         ComboBoxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer", "Admin Hotel" }));
 
         jLabel4.setText("Role");
 
+        ButtonSubmit.setBackground(new java.awt.Color(58, 152, 248));
+        ButtonSubmit.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        ButtonSubmit.setForeground(new java.awt.Color(255, 255, 255));
         ButtonSubmit.setText("Submit");
+        ButtonSubmit.setBorder(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Register");
@@ -85,7 +91,7 @@ public class Register extends javax.swing.JPanel {
                             .addComponent(jLabel3))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(ComboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ButtonSubmit)
+                            .addComponent(ButtonSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(jLabel4))
@@ -109,11 +115,11 @@ public class Register extends javax.swing.JPanel {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addComponent(ComboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(ButtonSubmit)
-                .addGap(29, 29, 29)
+                .addGap(27, 27, 27)
+                .addComponent(ButtonSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LabelAkun)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
