@@ -103,6 +103,7 @@ public class MenuKamar extends javax.swing.JPanel {
         labelBack.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelBack.setForeground(new java.awt.Color(255, 51, 51));
         labelBack.setText("< Back");
+        labelBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -114,8 +115,7 @@ public class MenuKamar extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addComponent(labelCustomer)
-                        .addGap(11, 11, 11)))
+                        .addComponent(labelCustomer)))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
