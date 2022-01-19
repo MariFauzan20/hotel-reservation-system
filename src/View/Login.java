@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 public class Login extends javax.swing.JPanel {
 
     Database database;
+    private String currentUserId, roleUser;
     
     /**
      * Creates new form Login
@@ -35,22 +36,34 @@ public class Login extends javax.swing.JPanel {
         return LabelAkun;
     }
     
+    public String getCurrentUserId() {
+        return currentUserId;
+    }
+    
+    public String getRoleUser() {
+        return roleUser;
+    }
+    
     void verifyInputUser() {
         String username = TextFieldUsername.getText();
         String password = TextFieldPassword.getText();
         
         String id = database.verifyCustomer(username, password);
         if(id != "not found") {
-            System.out.println(id + " Customer");
+            currentUserId = id;
+            roleUser = "customer";
+            return;
         }
         
         id = database.verifyHotel(username, password);
         if(id != "not found") {
-            System.out.println(id + " Admin Hotel");
+            currentUserId = id;
+            roleUser = "hotel";
+            return;
         }
-        
-        
-        System.out.println("");
+        currentUserId = "not found";
+        roleUser = "not found";
+        return;
     }
 
     /**

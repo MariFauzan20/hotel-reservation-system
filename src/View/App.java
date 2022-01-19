@@ -3,6 +3,7 @@ package View;
 
 import java.awt.CardLayout;
 import java.awt.event.*;
+import javax.swing.*;
 
 /**
  *
@@ -73,8 +74,21 @@ public class App extends javax.swing.JFrame {
             }
         });
         login.getButtonSubmit().addActionListener((ActionEvent e) -> {
-//            login.verifyInputUser();
-              cardLayout.show(parentPanel, "BerandaCustomer");
+            login.verifyInputUser();
+            String role = login.getRoleUser();
+            if (role == "customer") {
+                cardLayout.show(parentPanel, "BerandaCustomer");
+            } else if (role == "hotel") {
+                cardLayout.show(parentPanel, "BerandaHotel");
+            } else {
+                JOptionPane.showConfirmDialog(
+                    null,
+                    "Username/password salah",
+                    "",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
+                );
+            }
         });
     }
     
