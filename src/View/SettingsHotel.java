@@ -59,6 +59,7 @@ public class SettingsHotel extends javax.swing.JPanel {
         labelBack.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelBack.setForeground(new java.awt.Color(255, 51, 51));
         labelBack.setText("< Back");
+        labelBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelUsername.setText("Username");
