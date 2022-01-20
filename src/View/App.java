@@ -102,6 +102,10 @@ public class App extends javax.swing.JFrame {
                 cardLayout.show(parentPanel, "Login");
             }
         });
+        register.getButtonSubmit().addActionListener((ActionEvent e) -> {
+            register.submitForm();
+            cardLayout.show(parentPanel, "Login");
+        });
     }
     
     private void routeBerandaCustomer() {
@@ -164,13 +168,18 @@ public class App extends javax.swing.JFrame {
           
     private void routeBerandaHotelPage() {
         berandaHotel.getButtonMenuKamar().addActionListener((ActionEvent e) -> {
-            menuKamar.loadMenuKamarFromDB(login.getCurrentUserId());
+            menuKamar.setIdHotel(login.getCurrentUserId());
+            menuKamar.loadMenuKamarFromDB();
             cardLayout.show(parentPanel, "MenuKamar");
         });
         berandaHotel.getButtonLihatCustomer().addActionListener((ActionEvent e) -> {
+            customerHotel.setIdHotel(login.getCurrentUserId());
+            customerHotel.loadCustomerHotel();
             cardLayout.show(parentPanel, "CustomerHotel");
         });
         berandaHotel.getButtonSettings().addActionListener((ActionEvent e) -> {
+            settingsHotel.setIdHotel(login.getCurrentUserId());
+            settingsHotel.fillFormWithData();
             cardLayout.show(parentPanel, "SettingsHotel");
         });
         berandaHotel.getButtonLogout().addActionListener((ActionEvent e) -> {

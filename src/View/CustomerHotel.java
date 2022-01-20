@@ -5,6 +5,10 @@
  */
 package View;
 
+import HotelReservationSystem.Database;
+import HotelReservationSystem.DetilPemesanan;
+import HotelReservationSystem.TabelCustomerHotel;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 
 /**
@@ -12,16 +16,30 @@ import javax.swing.JLabel;
  * @author Muhammad Tsaqif Ammar
  */
 public class CustomerHotel extends javax.swing.JPanel {
+    
+    private String idHotel;
+    private Database db;
+    private ArrayList<DetilPemesanan> arrDP;
 
     /**
      * Creates new form CustomerHotel
      */
     public CustomerHotel() {
         initComponents();
+        db = new Database();
     }
 
     public JLabel getLabelBack() {
         return labelBack;
+    }
+    public void setIdHotel(String id_hotel) {
+        this.idHotel = id_hotel;
+    }
+    
+    public void loadCustomerHotel() {
+        arrDP = db.getPemesananByHotel(idHotel);
+        TabelCustomerHotel modelTabel = new TabelCustomerHotel(arrDP);
+        tabelCustomer.setModel(modelTabel);
     }
 
     /**
@@ -55,7 +73,15 @@ public class CustomerHotel extends javax.swing.JPanel {
             new String [] {
                 "Nama", "Tipe Kamar", "Banyak Kamar", "Banyak Malam"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tabelCustomer);
 
         labelBack.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N

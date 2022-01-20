@@ -5,24 +5,46 @@
  */
 package View;
 
+import HotelReservationSystem.Database;
+import HotelReservationSystem.Hotel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Muhammad Tsaqif Ammar
  */
 public class SettingsHotel extends javax.swing.JPanel {
+    
+    private Database db;
+    private String idHotel;
+    private Hotel h;
 
     /**
      * Creates new form SettingsHotel
      */
     public SettingsHotel() {
         initComponents();
+        db = new Database();
     }
 
     public JLabel getLabelBack() {
         return labelBack;
+    }
+    
+    public void setIdHotel(String id_hotel) {
+        this.idHotel = id_hotel;
+    }
+    
+    public void fillFormWithData() {
+        h = db.getHotelById(idHotel);
+        textFieldUsername.setText(h.getUsername());
+        textFieldPassword.setText(h.getPassword());
+        textFieldNamaHotel.setText(h.getNama());
+        textFieldLokasi.setText(h.getLokasi());
+        spinnerBintang.setValue(h.getBanyakBintang());
+        textFieldDeskripsi.setText(h.getDeskripsi());
     }
 
     /**
@@ -80,6 +102,7 @@ public class SettingsHotel extends javax.swing.JPanel {
         labelDeskripsi.setText("Deskripsi");
 
         textFieldDeskripsi.setColumns(20);
+        textFieldDeskripsi.setLineWrap(true);
         textFieldDeskripsi.setRows(5);
         jScrollPane1.setViewportView(textFieldDeskripsi);
 
@@ -87,6 +110,11 @@ public class SettingsHotel extends javax.swing.JPanel {
         buttonSimpan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         buttonSimpan.setForeground(new java.awt.Color(255, 255, 255));
         buttonSimpan.setText("Simpan");
+        buttonSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSimpanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -176,6 +204,23 @@ public class SettingsHotel extends javax.swing.JPanel {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimpanActionPerformed
+        h.setUsername(textFieldUsername.getText());
+        h.setPassword(textFieldPassword.getText());
+        h.setNama(textFieldNamaHotel.getText());
+        h.setLokasi(textFieldLokasi.getText());
+        h.setBanyakBintang((int) spinnerBintang.getValue());
+        h.setDeskripsi(textFieldDeskripsi.getText());
+        db.updateHotelById(idHotel, h);
+        JOptionPane.showConfirmDialog(
+            null,
+            "Data berhasil diperbarui",
+            "",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
+    }//GEN-LAST:event_buttonSimpanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
