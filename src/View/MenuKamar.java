@@ -35,8 +35,6 @@ public class MenuKamar extends javax.swing.JPanel {
         listModelMenu = new DefaultListModel<>();
         listKamar.setModel(listModelMenu);
         listKamar.addListSelectionListener(new selectedMenuHandler());
-        
-        listUnselectedStuff();
     }
 
     public JLabel getLabelBack() {
@@ -48,10 +46,15 @@ public class MenuKamar extends javax.swing.JPanel {
     }
     
     public void loadMenuKamarFromDB() {
+        isChanging = true;
+        listKamar.clearSelection();
+        listUnselectedStuff();
+        
         listModelMenu.removeAllElements();
         ArrayList<PilihanMenuKamar> menu = db.getPilihanMenuByHotel(idHotel);
         for (PilihanMenuKamar p : menu)
             listModelMenu.addElement(p);
+        isChanging = false;
     }
     
     private void listSelectedStuff() {
@@ -164,6 +167,11 @@ public class MenuKamar extends javax.swing.JPanel {
         buttonHapus.setForeground(new java.awt.Color(255, 255, 255));
         buttonHapus.setText("Hapus");
         buttonHapus.setBorder(null);
+        buttonHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHapusActionPerformed(evt);
+            }
+        });
 
         labelBack.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelBack.setForeground(new java.awt.Color(255, 51, 51));
@@ -275,12 +283,15 @@ public class MenuKamar extends javax.swing.JPanel {
         
         db.updatePilihanMenuById(p.getId(), p);
         
-        isChanging = true;
-        listKamar.clearSelection();
-        listUnselectedStuff();
         loadMenuKamarFromDB();
-        isChanging = false;
     }//GEN-LAST:event_buttonPerbaruiActionPerformed
+
+    private void buttonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusActionPerformed
+        PilihanMenuKamar p = (PilihanMenuKamar) listKamar.getSelectedValue();
+        db.deletePilihanMenuById(p.getId(), p.getJenisKamar().getId());
+        
+        loadMenuKamarFromDB();
+    }//GEN-LAST:event_buttonHapusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

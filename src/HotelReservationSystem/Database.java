@@ -432,4 +432,19 @@ public class Database {
             e.printStackTrace();
         }
     }
+    
+    public void deletePilihanMenuById(String id_pm, String id_k) {
+        try {
+            String sqlPM = "DELETE FROM pilihan_menu WHERE id='%s'";
+            String sqlKamar = "DELETE FROM kamar WHERE id='%s'";
+            sqlPM = String.format(sqlPM, id_pm);
+            sqlKamar = String.format(sqlKamar, id_k);
+            
+            stmt.execute(sqlPM);
+            stmt.execute(sqlKamar);
+            System.out.println("Pilihan menu berhasil dihapus.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
