@@ -5,20 +5,27 @@
  */
 package View;
 
+import HotelReservationSystem.Customer;
+import HotelReservationSystem.Database;
+import HotelReservationSystem.Hotel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author ASUS
  */
 public class Register extends javax.swing.JPanel {
+    
+    private Database db;
 
     /**
      * Creates new form Register
      */
     public Register() {
         initComponents();
+        db = new Database();
     }
 
     public JButton getButtonSubmit() {
@@ -29,6 +36,34 @@ public class Register extends javax.swing.JPanel {
         return LabelAkun;
     }
     
+    private void showDialog(String msg) {
+        JOptionPane.showConfirmDialog(
+            null,
+            msg,
+            "",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
+    }
+    
+    public void submitForm() {
+        String username = TextFieldUsername.getText().trim();
+        String password = TextFieldPassword.getText().trim();
+        if (username.isEmpty() || password.isEmpty()) {
+            showDialog("Username/password tidak boleh kosong");
+            return;
+        }
+        
+        String role = (String) ComboBoxRole.getSelectedItem();
+        if ("Customer".equals(role)) {
+            Customer c = new Customer(username, password, "");
+            db.insertCustomer(c);
+        } else {
+            Hotel h = new Hotel(username, password, "", "", "", 0);
+            db.insertHotel(h);
+        }
+        showDialog("Akun berhasil dibuat.");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
