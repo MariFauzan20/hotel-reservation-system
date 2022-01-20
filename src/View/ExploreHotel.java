@@ -43,13 +43,12 @@ public class ExploreHotel extends javax.swing.JPanel {
                 h.getNama(),
                 h.getDeskripsi(),
                 h.getLokasi(),
+                String.valueOf(h.getBanyakBintang())
             };
             
             DefaultTableModel tblModel = (DefaultTableModel)TableDataHotel.getModel();
             tblModel.addRow(tbData);
-        }
-        
-        
+        }        
     }
 
     public JButton getButtonCari() {
@@ -112,14 +111,14 @@ public class ExploreHotel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nama", "Deskripsi", "Lokasi"
+                "Nama", "Deskripsi", "Lokasi", "Bintang"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
