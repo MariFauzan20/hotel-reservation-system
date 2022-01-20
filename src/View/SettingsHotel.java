@@ -9,6 +9,7 @@ import HotelReservationSystem.Database;
 import HotelReservationSystem.Hotel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -212,6 +213,13 @@ public class SettingsHotel extends javax.swing.JPanel {
         h.setBanyakBintang((int) spinnerBintang.getValue());
         h.setDeskripsi(textFieldDeskripsi.getText());
         db.updateHotelById(idHotel, h);
+        JOptionPane.showConfirmDialog(
+            null,
+            "Data berhasil diperbarui",
+            "",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
     }//GEN-LAST:event_buttonSimpanActionPerformed
 
 

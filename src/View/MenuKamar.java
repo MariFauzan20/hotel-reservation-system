@@ -11,6 +11,7 @@ import HotelReservationSystem.PilihanMenuKamar;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -86,6 +87,16 @@ public class MenuKamar extends javax.swing.JPanel {
                 listSelectedStuff();
             }
         }
+    }
+    
+    private void showDialog(String msg) {
+        JOptionPane.showConfirmDialog(
+            null,
+            msg,
+            "",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -269,6 +280,7 @@ public class MenuKamar extends javax.swing.JPanel {
         
         db.insertPilihanMenu(idHotel, p);
         loadMenuKamarFromDB();
+        showDialog("Menu baru berhasil ditambahkan.");
     }//GEN-LAST:event_buttonTambahActionPerformed
 
     private void buttonPerbaruiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPerbaruiActionPerformed
@@ -284,6 +296,7 @@ public class MenuKamar extends javax.swing.JPanel {
         db.updatePilihanMenuById(p.getId(), p);
         
         loadMenuKamarFromDB();
+        showDialog("Menu berhasil diperbarui.");
     }//GEN-LAST:event_buttonPerbaruiActionPerformed
 
     private void buttonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusActionPerformed
@@ -291,6 +304,7 @@ public class MenuKamar extends javax.swing.JPanel {
         db.deletePilihanMenuById(p.getId(), p.getJenisKamar().getId());
         
         loadMenuKamarFromDB();
+        showDialog("Menu berhasil dihapus.");
     }//GEN-LAST:event_buttonHapusActionPerformed
 
 
