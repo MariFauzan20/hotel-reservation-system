@@ -102,6 +102,10 @@ public class App extends javax.swing.JFrame {
                 cardLayout.show(parentPanel, "Login");
             }
         });
+        register.getButtonSubmit().addActionListener((ActionEvent e) -> {
+            register.submitForm();
+            cardLayout.show(parentPanel, "Login");
+        });
     }
     
     private void routeBerandaCustomer() {
