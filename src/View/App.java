@@ -164,7 +164,8 @@ public class App extends javax.swing.JFrame {
           
     private void routeBerandaHotelPage() {
         berandaHotel.getButtonMenuKamar().addActionListener((ActionEvent e) -> {
-            menuKamar.loadMenuKamarFromDB(login.getCurrentUserId());
+            menuKamar.setIdHotel(login.getCurrentUserId());
+            menuKamar.loadMenuKamarFromDB();
             cardLayout.show(parentPanel, "MenuKamar");
         });
         berandaHotel.getButtonLihatCustomer().addActionListener((ActionEvent e) -> {

@@ -6,10 +6,13 @@
 package View;
 
 import HotelReservationSystem.Database;
+import HotelReservationSystem.Kamar;
 import HotelReservationSystem.PilihanMenuKamar;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -18,6 +21,7 @@ import javax.swing.JLabel;
 public class MenuKamar extends javax.swing.JPanel {
     
     private Database db;
+    private String idHotel;
     DefaultListModel<PilihanMenuKamar> listModelMenu;
     PilihanMenuKamar curSelected;
 
@@ -29,19 +33,44 @@ public class MenuKamar extends javax.swing.JPanel {
         db = new Database();
         listModelMenu = new DefaultListModel<>();
         listKamar.setModel(listModelMenu);
+        listKamar.addListSelectionListener(new selectedMenuHandler());
+        
+        buttonTambah.setEnabled(true);
+        buttonPerbarui.setEnabled(false);
+        buttonHapus.setEnabled(false);
     }
 
     public JLabel getLabelBack() {
         return labelBack;
     }
     
-    public void loadMenuKamarFromDB(String id_hotel) {
+    public void setIdHotel(String id_hotel) {
+        this.idHotel = id_hotel;
+    }
+    
+    public void loadMenuKamarFromDB() {
         listModelMenu.removeAllElements();
-        ArrayList<PilihanMenuKamar> menu = db.getPilihanMenuByHotel(id_hotel);
+        ArrayList<PilihanMenuKamar> menu = db.getPilihanMenuByHotel(idHotel);
         for (PilihanMenuKamar p : menu)
             listModelMenu.addElement(p);
     }
 
+    private class selectedMenuHandler implements ListSelectionListener {
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            if (!e.getValueIsAdjusting()) {
+                PilihanMenuKamar p = (PilihanMenuKamar) listKamar.getSelectedValue();
+                textFieldTipe.setText(p.getJenisKamar().getTipe());
+                textFieldHarga.setText(Integer.toString(p.getJenisKamar().getHargaPerMalam()));
+                spinnerBatasOrang.setValue(p.getJenisKamar().getBatasOrangPerKamar());
+                spinnerBanyakKamar.setValue(p.getBanyakKamar());
+                
+                buttonTambah.setEnabled(false);
+                buttonPerbarui.setEnabled(true);
+                buttonHapus.setEnabled(true);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,13 +122,18 @@ public class MenuKamar extends javax.swing.JPanel {
         spinnerBanyakKamar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         labelBanyakKamar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelBanyakKamar.setText("Banyak Kamar");
+        labelBanyakKamar.setText("Banyak Kamar Tersedia");
 
         buttonTambah.setBackground(new java.awt.Color(58, 152, 248));
         buttonTambah.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         buttonTambah.setForeground(new java.awt.Color(255, 255, 255));
         buttonTambah.setText("Tambah");
         buttonTambah.setBorder(null);
+        buttonTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTambahActionPerformed(evt);
+            }
+        });
 
         buttonPerbarui.setBackground(new java.awt.Color(58, 152, 248));
         buttonPerbarui.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -146,18 +180,17 @@ public class MenuKamar extends javax.swing.JPanel {
                             .addComponent(textFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(177, 177, 177))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(buttonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonPerbarui, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelBanyakKamar)
-                                .addGap(32, 32, 32)
-                                .addComponent(spinnerBanyakKamar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(206, 206, 206))))
+                        .addComponent(buttonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonPerbarui, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(206, 206, 206))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(labelBanyakKamar)
+                        .addGap(32, 32, 32)
+                        .addComponent(spinnerBanyakKamar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(labelBack)
@@ -199,6 +232,18 @@ public class MenuKamar extends javax.swing.JPanel {
                 .addContainerGap(61, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
+        Kamar k = new Kamar(
+                textFieldTipe.getText(),
+                Integer.parseInt(textFieldHarga.getText()),
+                (int) spinnerBatasOrang.getValue()
+        );
+        PilihanMenuKamar p = new PilihanMenuKamar(k, (int) spinnerBanyakKamar.getValue());
+        
+        db.insertPilihanMenu(idHotel, p);
+        loadMenuKamarFromDB();
+    }//GEN-LAST:event_buttonTambahActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
