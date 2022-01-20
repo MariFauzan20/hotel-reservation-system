@@ -5,11 +5,15 @@
  */
 package View;
 
+import HotelReservationSystem.Database;
+import HotelReservationSystem.Hotel;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,11 +21,35 @@ import javax.swing.JTextField;
  */
 public class ExploreHotel extends javax.swing.JPanel {
 
+    Database database = new Database();
     /**
      * Creates new form ExploreHotel
      */
     public ExploreHotel() {
         initComponents();
+        
+        loadDataHotel();
+    }
+    
+    public void loadDataHotel(){
+        ArrayList<Hotel> arrayHotel = database.getAllHotels();
+        for (Hotel h : arrayHotel) {
+            System.out.println(h.getNama());
+            System.out.println(h.getDeskripsi());
+            System.out.println(h.getLokasi());
+            System.out.println(h.getBanyakBintang());
+            
+            String tbData[] = {
+                h.getNama(),
+                h.getDeskripsi(),
+                h.getLokasi(),
+            };
+            
+            DefaultTableModel tblModel = (DefaultTableModel)TableDataHotel.getModel();
+            tblModel.addRow(tbData);
+        }
+        
+        
     }
 
     public JButton getButtonCari() {
@@ -81,15 +109,27 @@ public class ExploreHotel extends javax.swing.JPanel {
 
         TableDataHotel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nama", "Deskripsi", "Lokasi"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TableDataHotel);
 
         ComboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Location", "Star" }));
