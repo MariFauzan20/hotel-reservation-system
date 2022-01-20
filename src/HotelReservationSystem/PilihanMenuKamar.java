@@ -24,7 +24,7 @@ public class PilihanMenuKamar {
     public void setJenisKamar(Kamar kamar) {
         this.jenisKamar = kamar;
     }
-    public void setbanyakKamar(int banyakKamar) {
+    public void setBanyakKamar(int banyakKamar) {
         this.banyakKamar = banyakKamar;
     }
     
@@ -34,7 +34,7 @@ public class PilihanMenuKamar {
     public Kamar getJenisKamar() {
         return jenisKamar;
     }
-    public int getbanyakKamar() {
+    public int getBanyakKamar() {
         return banyakKamar;
     }
     
@@ -43,5 +43,9 @@ public class PilihanMenuKamar {
     }
     public void kurangKamar(int num) {
         banyakKamar -= num;
+    }
+    
+    public String toString() {
+        return jenisKamar.getTipe();
     }
 }

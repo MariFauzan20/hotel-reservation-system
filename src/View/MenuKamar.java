@@ -5,6 +5,10 @@
  */
 package View;
 
+import HotelReservationSystem.Database;
+import HotelReservationSystem.PilihanMenuKamar;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 
 /**
@@ -12,16 +16,30 @@ import javax.swing.JLabel;
  * @author Muhammad Tsaqif Ammar
  */
 public class MenuKamar extends javax.swing.JPanel {
+    
+    private Database db;
+    DefaultListModel<PilihanMenuKamar> listModelMenu;
+    PilihanMenuKamar curSelected;
 
     /**
      * Creates new form MenuKamar
      */
     public MenuKamar() {
         initComponents();
+        db = new Database();
+        listModelMenu = new DefaultListModel<>();
+        listKamar.setModel(listModelMenu);
     }
 
     public JLabel getLabelBack() {
         return labelBack;
+    }
+    
+    public void loadMenuKamarFromDB(String id_hotel) {
+        listModelMenu.removeAllElements();
+        ArrayList<PilihanMenuKamar> menu = db.getPilihanMenuByHotel(id_hotel);
+        for (PilihanMenuKamar p : menu)
+            listModelMenu.addElement(p);
     }
 
     /**
@@ -55,11 +73,6 @@ public class MenuKamar extends javax.swing.JPanel {
         labelCustomer.setText("Menu Kamar");
 
         listKamar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        listKamar.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listKamar);
 
         labelTipe.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
