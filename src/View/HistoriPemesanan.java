@@ -6,7 +6,10 @@
 package View;
 
 import HotelReservationSystem.Database;
+import HotelReservationSystem.DetilPemesanan;
 import HotelReservationSystem.Hotel;
+import HotelReservationSystem.TabelCustomerHotel;
+import HotelReservationSystem.TablePemesanan;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
@@ -17,38 +20,31 @@ import javax.swing.table.DefaultTableModel;
  */
 public class HistoriPemesanan extends javax.swing.JPanel {
 
-    Database database = new Database();
+    private String idUser;
+    private Database db;
+    private ArrayList<DetilPemesanan> arrayPemesanan;
+
     /**
      * Creates new form HistoriPemesanan
      */
     public HistoriPemesanan() {
         initComponents();
         
-        loadDataHotel();
-    }
-    
-    public void loadDataHotel(){
-        ArrayList<Hotel> arrayHotel = database.getAllHotels();
-        for (Hotel h : arrayHotel) {
-            System.out.println(h.getNama());
-            System.out.println(h.getDeskripsi());
-            System.out.println(h.getLokasi());
-            System.out.println(h.getBanyakBintang());
-            
-            String tbData[] = {
-                h.getNama(),
-                h.getDeskripsi(),
-                h.getLokasi(),
-                String.valueOf(h.getBanyakBintang())
-            };
-            
-            DefaultTableModel tblModel = (DefaultTableModel)TableHistoriPemesanan.getModel();
-            tblModel.addRow(tbData);
-        }        
+        db = new Database();
     }
 
     public JLabel getLabelBack() {
         return LabelBack;
+    }
+    
+    public void setIdUser(String id_user) {
+        this.idUser = id_user;
+    }
+    
+    public void loadCustomerHotel() {
+        arrayPemesanan = db.getPemesananByCustomer(idUser);
+        TablePemesanan modelTabel = new TablePemesanan(arrayPemesanan);
+        TableHistoriPemesanan.setModel(modelTabel);
     }
 
     /**

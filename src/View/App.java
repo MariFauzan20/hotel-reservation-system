@@ -110,11 +110,15 @@ public class App extends javax.swing.JFrame {
     
     private void routeBerandaCustomer() {
         berandaCustomer.getButtonExploreHotel().addActionListener((ActionEvent e) -> {
-              cardLayout.show(parentPanel, "ExploreHotel");
+            exploreHotel.setIdHotel(login.getCurrentUserId());
+            exploreHotel.loadAllHotel();
+            cardLayout.show(parentPanel, "ExploreHotel");
         });
         
         berandaCustomer.getButtonHistoriPemesanan().addActionListener((ActionEvent e) -> {
-              cardLayout.show(parentPanel, "HistoriPemesanan");
+            historiPemesanan.setIdUser(login.getCurrentUserId());
+            historiPemesanan.loadCustomerHotel();
+             cardLayout.show(parentPanel, "HistoriPemesanan");
         });
         
         berandaCustomer.getButtonSettings().addActionListener((ActionEvent e) -> {

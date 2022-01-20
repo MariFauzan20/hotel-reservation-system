@@ -6,7 +6,10 @@
 package View;
 
 import HotelReservationSystem.Database;
+import HotelReservationSystem.DetilPemesanan;
 import HotelReservationSystem.Hotel;
+import HotelReservationSystem.TabelCustomerHotel;
+import HotelReservationSystem.TableHotel;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,34 +24,27 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ExploreHotel extends javax.swing.JPanel {
 
-    Database database = new Database();
+    private String idHotel;
+    private Database db;
+    private ArrayList<Hotel> arrayExploreHotel;
+    
     /**
      * Creates new form ExploreHotel
      */
     public ExploreHotel() {
         initComponents();
         
-        loadDataHotel();
+        db = new Database();
     }
     
-    public void loadDataHotel(){
-        ArrayList<Hotel> arrayHotel = database.getAllHotels();
-        for (Hotel h : arrayHotel) {
-            System.out.println(h.getNama());
-            System.out.println(h.getDeskripsi());
-            System.out.println(h.getLokasi());
-            System.out.println(h.getBanyakBintang());
-            
-            String tbData[] = {
-                h.getNama(),
-                h.getDeskripsi(),
-                h.getLokasi(),
-                String.valueOf(h.getBanyakBintang())
-            };
-            
-            DefaultTableModel tblModel = (DefaultTableModel)TableDataHotel.getModel();
-            tblModel.addRow(tbData);
-        }        
+    public void setIdHotel(String id_hotel) {
+        this.idHotel = id_hotel;
+    }
+    
+     public void loadAllHotel() {
+        arrayExploreHotel = db.getAllHotels();
+        TableHotel modelTabel = new TableHotel(arrayExploreHotel);
+        TableDataHotel.setModel(modelTabel);
     }
 
     public JButton getButtonCari() {
