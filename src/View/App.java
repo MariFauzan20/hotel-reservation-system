@@ -172,6 +172,8 @@ public class App extends javax.swing.JFrame {
             cardLayout.show(parentPanel, "CustomerHotel");
         });
         berandaHotel.getButtonSettings().addActionListener((ActionEvent e) -> {
+            settingsHotel.setIdHotel(login.getCurrentUserId());
+            settingsHotel.fillFormWithData();
             cardLayout.show(parentPanel, "SettingsHotel");
         });
         berandaHotel.getButtonLogout().addActionListener((ActionEvent e) -> {
