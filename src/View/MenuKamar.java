@@ -24,6 +24,7 @@ public class MenuKamar extends javax.swing.JPanel {
     private String idHotel;
     DefaultListModel<PilihanMenuKamar> listModelMenu;
     PilihanMenuKamar curSelected;
+    private boolean isChanging = false;
 
     /**
      * Creates new form MenuKamar
@@ -35,9 +36,7 @@ public class MenuKamar extends javax.swing.JPanel {
         listKamar.setModel(listModelMenu);
         listKamar.addListSelectionListener(new selectedMenuHandler());
         
-        buttonTambah.setEnabled(true);
-        buttonPerbarui.setEnabled(false);
-        buttonHapus.setEnabled(false);
+        listUnselectedStuff();
     }
 
     public JLabel getLabelBack() {
@@ -54,20 +53,34 @@ public class MenuKamar extends javax.swing.JPanel {
         for (PilihanMenuKamar p : menu)
             listModelMenu.addElement(p);
     }
+    
+    private void listSelectedStuff() {
+        buttonTambah.setEnabled(false);
+        buttonPerbarui.setEnabled(true);
+        buttonHapus.setEnabled(true);
+    }
+    
+    private void listUnselectedStuff() {
+        textFieldTipe.setText("");
+        textFieldHarga.setText("");
+        spinnerBatasOrang.setValue(0);
+        spinnerBanyakKamar.setValue(0);
+        buttonTambah.setEnabled(true);
+        buttonPerbarui.setEnabled(false);
+        buttonHapus.setEnabled(false);
+    }
 
     private class selectedMenuHandler implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            if (!e.getValueIsAdjusting()) {
+            if (!e.getValueIsAdjusting() && !isChanging) {
                 PilihanMenuKamar p = (PilihanMenuKamar) listKamar.getSelectedValue();
                 textFieldTipe.setText(p.getJenisKamar().getTipe());
                 textFieldHarga.setText(Integer.toString(p.getJenisKamar().getHargaPerMalam()));
                 spinnerBatasOrang.setValue(p.getJenisKamar().getBatasOrangPerKamar());
                 spinnerBanyakKamar.setValue(p.getBanyakKamar());
                 
-                buttonTambah.setEnabled(false);
-                buttonPerbarui.setEnabled(true);
-                buttonHapus.setEnabled(true);
+                listSelectedStuff();
             }
         }
     }
@@ -140,6 +153,11 @@ public class MenuKamar extends javax.swing.JPanel {
         buttonPerbarui.setForeground(new java.awt.Color(255, 255, 255));
         buttonPerbarui.setText("Perbarui");
         buttonPerbarui.setBorder(null);
+        buttonPerbarui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPerbaruiActionPerformed(evt);
+            }
+        });
 
         buttonHapus.setBackground(new java.awt.Color(255, 51, 51));
         buttonHapus.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -244,6 +262,25 @@ public class MenuKamar extends javax.swing.JPanel {
         db.insertPilihanMenu(idHotel, p);
         loadMenuKamarFromDB();
     }//GEN-LAST:event_buttonTambahActionPerformed
+
+    private void buttonPerbaruiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPerbaruiActionPerformed
+        PilihanMenuKamar p = (PilihanMenuKamar) listKamar.getSelectedValue();
+        
+        Kamar upd_k = p.getJenisKamar();
+        upd_k.setTipe(textFieldTipe.getText());
+        upd_k.setHargaPerMalam(Integer.parseInt(textFieldHarga.getText()));
+        upd_k.setBatasOrangPerKamar((int) spinnerBatasOrang.getValue());
+        p.setJenisKamar(upd_k);
+        p.setBanyakKamar((int) spinnerBanyakKamar.getValue());
+        
+        db.updatePilihanMenuById(p.getId(), p);
+        
+        isChanging = true;
+        listKamar.clearSelection();
+        listUnselectedStuff();
+        loadMenuKamarFromDB();
+        isChanging = false;
+    }//GEN-LAST:event_buttonPerbaruiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
