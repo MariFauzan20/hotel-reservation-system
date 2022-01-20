@@ -89,7 +89,7 @@ public class Database {
             int harga = k.getHargaPerMalam();
             int batas_org = k.getBatasOrangPerKamar();
             
-            int banyak_kamar = p.getbanyakKamar();
+            int banyak_kamar = p.getBanyakKamar();
             
             String sqlKamar = "INSERT INTO kamar VALUES ('%s','%s',%d,%d)";
             String sqlPM = "INSERT INTO pilihan_menu VALUES('%s','%s','%s',%d)";
@@ -418,7 +418,7 @@ public class Database {
             String upd_tp = k.getTipe();
             int upd_hg = k.getHargaPerMalam();
             int upd_bt = k.getBatasOrangPerKamar();
-            int upd_byk_sedia = p.getbanyakKamar();
+            int upd_byk_sedia = p.getBanyakKamar();
             
             String sqlKamar = "UPDATE kamar SET tipe='%s',harga_per_malam=%d,batas_orang=%d WHERE id='%s'";
             String sqlPM = "UPDATE pilihan_menu SET banyak_kamar=%d WHERE id = '%s'";
