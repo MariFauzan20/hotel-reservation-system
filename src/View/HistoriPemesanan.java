@@ -41,7 +41,7 @@ public class HistoriPemesanan extends javax.swing.JPanel {
         this.idUser = id_user;
     }
     
-    public void loadCustomerHotel() {
+    public void loadHistoriPemesanan() {
         arrayPemesanan = db.getPemesananByCustomer(idUser);
         TablePemesanan modelTabel = new TablePemesanan(arrayPemesanan);
         TableHistoriPemesanan.setModel(modelTabel);

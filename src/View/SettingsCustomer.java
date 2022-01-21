@@ -5,6 +5,9 @@
  */
 package View;
 
+import HotelReservationSystem.Customer;
+import HotelReservationSystem.Database;
+import HotelReservationSystem.Hotel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -15,11 +18,16 @@ import javax.swing.JTextField;
  */
 public class SettingsCustomer extends javax.swing.JPanel {
 
+    private Database db;
+    private String idUser;
+    private Customer c;
+    
     /**
      * Creates new form Settings
      */
     public SettingsCustomer() {
         initComponents();
+        
     }
 
     public JButton getButtonSetting() {

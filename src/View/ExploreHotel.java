@@ -35,10 +35,21 @@ public class ExploreHotel extends javax.swing.JPanel {
         initComponents();
         
         db = new Database();
+//        ButtonPilih.setEnabled(false);
+        
+    }
+    
+    public void getIdData() {
+        int index = TableDataHotel.getSelectedRow();
+        setIdHotel(arrayExploreHotel.get(index).getId());
     }
     
     public void setIdHotel(String id_hotel) {
         this.idHotel = id_hotel;
+    }
+    
+    public String getIdHotel() {
+        return idHotel;
     }
     
      public void loadAllHotel() {
@@ -139,6 +150,11 @@ public class ExploreHotel extends javax.swing.JPanel {
         ButtonCari.setForeground(new java.awt.Color(255, 255, 255));
         ButtonCari.setText("Search");
         ButtonCari.setBorder(null);
+        ButtonCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCariActionPerformed(evt);
+            }
+        });
 
         ButtonPilih.setBackground(new java.awt.Color(58, 152, 248));
         ButtonPilih.setForeground(new java.awt.Color(255, 255, 255));
@@ -204,6 +220,13 @@ public class ExploreHotel extends javax.swing.JPanel {
                 .addGap(24, 24, 24))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ButtonCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCariActionPerformed
+        // TODO add your handling code here:
+        // get caritextfield, comboboxcategori
+        // get data dari database pake db.filterhotelby...
+        // load table pake data yang udah di get dari database
+    }//GEN-LAST:event_ButtonCariActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

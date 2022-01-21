@@ -33,8 +33,9 @@ public class TablePemesanan extends AbstractTableModel {
         switch(col) {
             case 0: return "Nama Hotel";
             case 1: return "Tipe Kamar";
-            case 2: return "Banyak Kamar";
-            case 3: return "Harga Total";
+            case 2: return "Banyak Malam";
+            case 3: return "Banyak Kamar";
+            case 4: return "Harga Total";
             default: return null;
         }
     }

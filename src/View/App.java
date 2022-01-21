@@ -117,7 +117,7 @@ public class App extends javax.swing.JFrame {
         
         berandaCustomer.getButtonHistoriPemesanan().addActionListener((ActionEvent e) -> {
             historiPemesanan.setIdUser(login.getCurrentUserId());
-            historiPemesanan.loadCustomerHotel();
+            historiPemesanan.loadHistoriPemesanan();
              cardLayout.show(parentPanel, "HistoriPemesanan");
         });
         
@@ -132,7 +132,12 @@ public class App extends javax.swing.JFrame {
     
     private void routeExploreHotel() {       
         exploreHotel.getButtonPilih().addActionListener((ActionEvent e) -> {
-              cardLayout.show(parentPanel, "DetailHotel");
+            exploreHotel.getIdData();  
+            exploreHotel.getIdHotel();
+            detailHotel.setIdHotel(exploreHotel.getIdHotel());
+            detailHotel.getAllKamar();
+            detailHotel.setIdCustomer(login.getCurrentUserId());
+            cardLayout.show(parentPanel, "DetailHotel");
         });
         
         exploreHotel.getLabelBack().addMouseListener(new MouseAdapter() {
@@ -142,9 +147,12 @@ public class App extends javax.swing.JFrame {
         });
     }
     
-    private void routeDetailHotel() {       
+    private void routeDetailHotel() {    
         detailHotel.getButtonPesan().addActionListener((ActionEvent e) -> {
-              cardLayout.show(parentPanel, "HistoriPemesanan");
+            detailHotel.insertPemesanan();
+            historiPemesanan.setIdUser(login.getCurrentUserId());
+            historiPemesanan.loadHistoriPemesanan();
+            cardLayout.show(parentPanel, "HistoriPemesanan");
         });
         
         detailHotel.getLabelBack().addMouseListener(new MouseAdapter() {
