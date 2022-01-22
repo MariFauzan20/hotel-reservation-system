@@ -7,9 +7,9 @@ package View;
 
 import HotelReservationSystem.Customer;
 import HotelReservationSystem.Database;
-import HotelReservationSystem.Hotel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 public class SettingsCustomer extends javax.swing.JPanel {
 
     private Database db;
-    private String idUser;
+    private String idCustomer;
     private Customer c;
     
     /**
@@ -28,6 +28,18 @@ public class SettingsCustomer extends javax.swing.JPanel {
     public SettingsCustomer() {
         initComponents();
         
+        db = new Database();
+    }
+    
+    public void setIdCustomer(String id_customer) {
+        this.idCustomer = id_customer;
+    }
+    
+    public void fillFormWithData() {
+        c = db.getCustomerById(idCustomer);
+        TextFieldUsername.setText(c.getUsername());
+        TextFieldPassword.setText(c.getPassword());
+        TextFieldName.setText(c.getNama());
     }
 
     public JButton getButtonSetting() {
@@ -82,6 +94,11 @@ public class SettingsCustomer extends javax.swing.JPanel {
         ButtonSetting.setForeground(new java.awt.Color(255, 255, 255));
         ButtonSetting.setText("Update");
         ButtonSetting.setBorder(null);
+        ButtonSetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSettingActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Nama");
 
@@ -139,6 +156,19 @@ public class SettingsCustomer extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ButtonSettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSettingActionPerformed
+        c.setUsername(TextFieldUsername.getText());
+        c.setPassword(TextFieldPassword.getText());
+        c.setNama(TextFieldName.getText());
+        db.updateCustomerById(idCustomer, c);
+        JOptionPane.showConfirmDialog(
+            null,
+            "Data berhasil diperbarui",
+            "",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
+    }//GEN-LAST:event_ButtonSettingActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonSetting;

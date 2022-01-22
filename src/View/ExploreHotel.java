@@ -16,6 +16,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,9 +37,20 @@ public class ExploreHotel extends javax.swing.JPanel {
         initComponents();
         
         db = new Database();
-//        ButtonPilih.setEnabled(false);
+
+        ButtonPilih.setEnabled(false);
         
+        TableDataHotel.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                if(!event.getValueIsAdjusting()){
+                    ButtonPilih.setEnabled(true);
+                    System.out.println("wadaw");
+                }
+            }
+        });
     }
+    
+    
     
     public void getIdData() {
         int index = TableDataHotel.getSelectedRow();
@@ -52,10 +65,11 @@ public class ExploreHotel extends javax.swing.JPanel {
         return idHotel;
     }
     
-     public void loadAllHotel() {
+    public void loadAllHotel() {
         arrayExploreHotel = db.getAllHotels();
         TableHotel modelTabel = new TableHotel(arrayExploreHotel);
         TableDataHotel.setModel(modelTabel);
+        ButtonPilih.setEnabled(false);
     }
 
     public JButton getButtonCari() {
@@ -138,7 +152,7 @@ public class ExploreHotel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TableDataHotel);
 
-        ComboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Location", "Star" }));
+        ComboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lokasi", "Bintang" }));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Berdasarkan");
@@ -222,10 +236,26 @@ public class ExploreHotel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCariActionPerformed
-        // TODO add your handling code here:
         // get caritextfield, comboboxcategori
+        String cari = TextFieldCari.getText();
+        String kategori = (String) ComboBoxKategori.getSelectedItem();
+        
+        if(cari.isEmpty()){
+            loadAllHotel();
+            return;
+        }
+        
         // get data dari database pake db.filterhotelby...
+        ArrayList<Hotel> arrayHotel;
+        if (kategori == "Bintang")
+             arrayHotel = db.getHotelsByBintang(Integer.parseInt(cari));    
+        else  
+             arrayHotel = db.getHotelsByLokasi(cari);
+        
         // load table pake data yang udah di get dari database
+        TableHotel modelTabel = new TableHotel(arrayHotel);
+        TableDataHotel.setModel(modelTabel);
+        ButtonPilih.setEnabled(false);
     }//GEN-LAST:event_ButtonCariActionPerformed
 
 

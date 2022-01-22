@@ -122,7 +122,9 @@ public class App extends javax.swing.JFrame {
         });
         
         berandaCustomer.getButtonSettings().addActionListener((ActionEvent e) -> {
-              cardLayout.show(parentPanel, "SettingsCustomer");
+            settingsCustomer.setIdCustomer(login.getCurrentUserId());
+            settingsCustomer.fillFormWithData();
+            cardLayout.show(parentPanel, "SettingsCustomer");
         });
         
         berandaCustomer.getButtonLogout().addActionListener((ActionEvent e) -> {
