@@ -110,15 +110,21 @@ public class App extends javax.swing.JFrame {
     
     private void routeBerandaCustomer() {
         berandaCustomer.getButtonExploreHotel().addActionListener((ActionEvent e) -> {
-              cardLayout.show(parentPanel, "ExploreHotel");
+            exploreHotel.setIdHotel(login.getCurrentUserId());
+            exploreHotel.loadAllHotel();
+            cardLayout.show(parentPanel, "ExploreHotel");
         });
         
         berandaCustomer.getButtonHistoriPemesanan().addActionListener((ActionEvent e) -> {
-              cardLayout.show(parentPanel, "HistoriPemesanan");
+            historiPemesanan.setIdUser(login.getCurrentUserId());
+            historiPemesanan.loadHistoriPemesanan();
+             cardLayout.show(parentPanel, "HistoriPemesanan");
         });
         
         berandaCustomer.getButtonSettings().addActionListener((ActionEvent e) -> {
-              cardLayout.show(parentPanel, "SettingsCustomer");
+            settingsCustomer.setIdCustomer(login.getCurrentUserId());
+            settingsCustomer.fillFormWithData();
+            cardLayout.show(parentPanel, "SettingsCustomer");
         });
         
         berandaCustomer.getButtonLogout().addActionListener((ActionEvent e) -> {
@@ -128,7 +134,12 @@ public class App extends javax.swing.JFrame {
     
     private void routeExploreHotel() {       
         exploreHotel.getButtonPilih().addActionListener((ActionEvent e) -> {
-              cardLayout.show(parentPanel, "DetailHotel");
+            exploreHotel.getIdData();  
+            exploreHotel.getIdHotel();
+            detailHotel.setIdHotel(exploreHotel.getIdHotel());
+            detailHotel.getAllKamar();
+            detailHotel.setIdCustomer(login.getCurrentUserId());
+            cardLayout.show(parentPanel, "DetailHotel");
         });
         
         exploreHotel.getLabelBack().addMouseListener(new MouseAdapter() {
@@ -138,9 +149,12 @@ public class App extends javax.swing.JFrame {
         });
     }
     
-    private void routeDetailHotel() {       
+    private void routeDetailHotel() {    
         detailHotel.getButtonPesan().addActionListener((ActionEvent e) -> {
-              cardLayout.show(parentPanel, "HistoriPemesanan");
+            detailHotel.insertPemesanan();
+            historiPemesanan.setIdUser(login.getCurrentUserId());
+            historiPemesanan.loadHistoriPemesanan();
+            cardLayout.show(parentPanel, "HistoriPemesanan");
         });
         
         detailHotel.getLabelBack().addMouseListener(new MouseAdapter() {

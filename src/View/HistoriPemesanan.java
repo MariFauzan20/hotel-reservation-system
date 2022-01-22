@@ -5,7 +5,14 @@
  */
 package View;
 
+import HotelReservationSystem.Database;
+import HotelReservationSystem.DetilPemesanan;
+import HotelReservationSystem.Hotel;
+import HotelReservationSystem.TabelCustomerHotel;
+import HotelReservationSystem.TablePemesanan;
+import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,15 +20,31 @@ import javax.swing.JLabel;
  */
 public class HistoriPemesanan extends javax.swing.JPanel {
 
+    private String idUser;
+    private Database db;
+    private ArrayList<DetilPemesanan> arrayPemesanan;
+
     /**
      * Creates new form HistoriPemesanan
      */
     public HistoriPemesanan() {
         initComponents();
+        
+        db = new Database();
     }
 
     public JLabel getLabelBack() {
         return LabelBack;
+    }
+    
+    public void setIdUser(String id_user) {
+        this.idUser = id_user;
+    }
+    
+    public void loadHistoriPemesanan() {
+        arrayPemesanan = db.getPemesananByCustomer(idUser);
+        TablePemesanan modelTabel = new TablePemesanan(arrayPemesanan);
+        TableHistoriPemesanan.setModel(modelTabel);
     }
 
     /**
@@ -35,6 +58,8 @@ public class HistoriPemesanan extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         LabelBack = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TableHistoriPemesanan = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -44,33 +69,55 @@ public class HistoriPemesanan extends javax.swing.JPanel {
         LabelBack.setForeground(new java.awt.Color(255, 51, 51));
         LabelBack.setText("< Back");
 
+        TableHistoriPemesanan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(TableHistoriPemesanan);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(352, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(326, 326, 326))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(LabelBack)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(LabelBack)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(350, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(328, 328, 328))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LabelBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jLabel1)
-                .addContainerGap(419, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelBack;
+    private javax.swing.JTable TableHistoriPemesanan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

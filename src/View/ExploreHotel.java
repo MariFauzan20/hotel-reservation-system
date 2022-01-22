@@ -5,11 +5,20 @@
  */
 package View;
 
+import HotelReservationSystem.Database;
+import HotelReservationSystem.DetilPemesanan;
+import HotelReservationSystem.Hotel;
+import HotelReservationSystem.TabelCustomerHotel;
+import HotelReservationSystem.TableHotel;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,11 +26,50 @@ import javax.swing.JTextField;
  */
 public class ExploreHotel extends javax.swing.JPanel {
 
+    private String idHotel;
+    private Database db;
+    private ArrayList<Hotel> arrayExploreHotel;
+    
     /**
      * Creates new form ExploreHotel
      */
     public ExploreHotel() {
         initComponents();
+        
+        db = new Database();
+
+        ButtonPilih.setEnabled(false);
+        
+        TableDataHotel.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                if(!event.getValueIsAdjusting()){
+                    ButtonPilih.setEnabled(true);
+                    System.out.println("wadaw");
+                }
+            }
+        });
+    }
+    
+    
+    
+    public void getIdData() {
+        int index = TableDataHotel.getSelectedRow();
+        setIdHotel(arrayExploreHotel.get(index).getId());
+    }
+    
+    public void setIdHotel(String id_hotel) {
+        this.idHotel = id_hotel;
+    }
+    
+    public String getIdHotel() {
+        return idHotel;
+    }
+    
+    public void loadAllHotel() {
+        arrayExploreHotel = db.getAllHotels();
+        TableHotel modelTabel = new TableHotel(arrayExploreHotel);
+        TableDataHotel.setModel(modelTabel);
+        ButtonPilih.setEnabled(false);
     }
 
     public JButton getButtonCari() {
@@ -81,18 +129,30 @@ public class ExploreHotel extends javax.swing.JPanel {
 
         TableDataHotel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nama", "Deskripsi", "Lokasi", "Bintang"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TableDataHotel);
 
-        ComboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Location", "Star" }));
+        ComboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lokasi", "Bintang" }));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Berdasarkan");
@@ -104,6 +164,11 @@ public class ExploreHotel extends javax.swing.JPanel {
         ButtonCari.setForeground(new java.awt.Color(255, 255, 255));
         ButtonCari.setText("Search");
         ButtonCari.setBorder(null);
+        ButtonCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCariActionPerformed(evt);
+            }
+        });
 
         ButtonPilih.setBackground(new java.awt.Color(58, 152, 248));
         ButtonPilih.setForeground(new java.awt.Color(255, 255, 255));
@@ -169,6 +234,29 @@ public class ExploreHotel extends javax.swing.JPanel {
                 .addGap(24, 24, 24))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ButtonCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCariActionPerformed
+        // get caritextfield, comboboxcategori
+        String cari = TextFieldCari.getText();
+        String kategori = (String) ComboBoxKategori.getSelectedItem();
+        
+        if(cari.isEmpty()){
+            loadAllHotel();
+            return;
+        }
+        
+        // get data dari database pake db.filterhotelby...
+        ArrayList<Hotel> arrayHotel;
+        if (kategori == "Bintang")
+             arrayHotel = db.getHotelsByBintang(Integer.parseInt(cari));    
+        else  
+             arrayHotel = db.getHotelsByLokasi(cari);
+        
+        // load table pake data yang udah di get dari database
+        TableHotel modelTabel = new TableHotel(arrayHotel);
+        TableDataHotel.setModel(modelTabel);
+        ButtonPilih.setEnabled(false);
+    }//GEN-LAST:event_ButtonCariActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
